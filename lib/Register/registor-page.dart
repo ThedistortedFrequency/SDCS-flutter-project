@@ -1,11 +1,13 @@
-// ignore_for_file: file_names
+// ignore_for_file: file_names, unnecessary_string_interpolations, non_constant_identifier_names
 
 import 'package:cached_network_image/cached_network_image.dart';
+import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:sdcs/Utils/routes.dart';
 
 class RegistorPage extends StatefulWidget {
   const RegistorPage({super.key});
+  static String verify = "";
 
   @override
   State<RegistorPage> createState() => _RegistorPageState();
@@ -13,6 +15,8 @@ class RegistorPage extends StatefulWidget {
 
 class _RegistorPageState extends State<RegistorPage> {
   TextEditingController countryController = TextEditingController();
+
+  var phone = "";
 
   @override
   void initState() {
@@ -95,10 +99,13 @@ class _RegistorPageState extends State<RegistorPage> {
                         const SizedBox(
                           width: 10,
                         ),
-                        const Expanded(
+                        Expanded(
                             child: TextField(
+                          onChanged: (value) {
+                            phone = value;
+                          },
                           keyboardType: TextInputType.phone,
-                          decoration: InputDecoration(
+                          decoration: const InputDecoration(
                             border: InputBorder.none,
                             hintText: "Phone",
                           ),
@@ -113,8 +120,23 @@ class _RegistorPageState extends State<RegistorPage> {
                     width: double.infinity,
                     height: 60,
                     child: ElevatedButton(
-                        onPressed: () {
-                          Navigator.pushNamed(context, Screen.otpPageScreen);
+                        onPressed: () async {
+                          await FirebaseAuth.instance.verifyPhoneNumber(
+                            phoneNumber: '${countryController.text + phone}',
+                            verificationCompleted:
+                                (PhoneAuthCredential credential) {},
+                            verificationFailed: (FirebaseAuthException e) {},
+                            codeSent:
+                                (String verificationId, int? resendToken) {
+                              RegistorPage.verify = verificationId;
+
+                              Navigator.pushNamed(
+                                  context, Screen.otpPageScreen);
+                            },
+                            codeAutoRetrievalTimeout:
+                                (String verificationId) {},
+                          );
+                          // Navigator.pushNamed(context, Screen.otpPageScreen);
                         },
                         child: const Text(
                           "Get Otp",
