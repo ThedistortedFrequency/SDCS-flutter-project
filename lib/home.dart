@@ -20,9 +20,8 @@ class _HomePageState extends State<HomePage> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      backgroundColor: Colors.teal[100],
+      backgroundColor: Colors.indigo[100],
       appBar: AppBar(
-        toolbarHeight: 65,
         elevation: 0.0,
         title: const Text("Streetlight Defect Complaint System"),
         actions: [
@@ -36,7 +35,7 @@ class _HomePageState extends State<HomePage> {
       bottomNavigationBar: BottomNavigationBar(
           currentIndex: currentIndex,
           type: BottomNavigationBarType.fixed,
-          backgroundColor: Colors.teal,
+          backgroundColor: Colors.indigo,
           selectedItemColor: Colors.white,
           unselectedItemColor: Colors.white60,
           onTap: (index) => setState(
@@ -46,12 +45,12 @@ class _HomePageState extends State<HomePage> {
             BottomNavigationBarItem(
               icon: Icon(Icons.home),
               label: "Home",
-              backgroundColor: Colors.teal,
+              backgroundColor: Colors.indigo,
             ),
             BottomNavigationBarItem(
               icon: Icon(Icons.feedback),
               label: "Feedback",
-              backgroundColor: Colors.teal,
+              backgroundColor: Colors.indigo,
             ),
           ]),
     );

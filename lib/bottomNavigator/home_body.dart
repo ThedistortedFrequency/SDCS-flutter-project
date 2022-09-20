@@ -8,7 +8,7 @@ class HomeBody extends StatelessWidget {
   Widget build(BuildContext context) {
     return Scaffold(
       extendBodyBehindAppBar: true,
-      backgroundColor: Colors.teal[100],
+      backgroundColor: Colors.indigo[100],
       body: Center(
           child: Container(
         margin: const EdgeInsets.only(left: 16, right: 16),
@@ -31,7 +31,7 @@ class HomeBody extends StatelessWidget {
                         width: double.infinity,
                         decoration: const BoxDecoration(
                             gradient: LinearGradient(
-                                colors: [Color(0xff06beb6), Color(0xff48b1bf)],
+                                colors: [Color(0xff131c85), Color(0xff827bd9)],
                                 begin: Alignment.topLeft,
                                 end: Alignment.topRight)),
                         child: InkWell(
@@ -69,7 +69,7 @@ class HomeBody extends StatelessWidget {
                         width: double.infinity,
                         decoration: const BoxDecoration(
                             gradient: LinearGradient(
-                                colors: [Color(0xff06beb6), Color(0xff48b1bf)],
+                                colors: [Color(0xff131c85), Color(0xff827bd9)],
                                 begin: Alignment.topLeft,
                                 end: Alignment.topRight)),
                         child: InkWell(

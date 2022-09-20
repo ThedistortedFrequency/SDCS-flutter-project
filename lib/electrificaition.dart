@@ -18,7 +18,7 @@ class _ElectrificationState extends State<Electrification> {
         appBar: AppBar(
           backgroundColor: Colors.transparent,
           elevation: 0,
-          foregroundColor: Colors.teal,
+          foregroundColor: Colors.indigo,
         ),
         body: SafeArea(
           child: SingleChildScrollView(
@@ -144,7 +144,7 @@ class _ElectrificationState extends State<Electrification> {
                           width: double.infinity,
                           height: 65,
                           decoration: BoxDecoration(
-                            color: Colors.teal,
+                            color: Colors.indigo,
                             borderRadius: BorderRadius.circular(5),
                           ),
                           child: const Center(

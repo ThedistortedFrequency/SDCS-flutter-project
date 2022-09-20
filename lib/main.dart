@@ -1,3 +1,4 @@
+import 'package:firebase_core/firebase_core.dart';
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:sdcs/Complaint.dart';
@@ -10,7 +11,10 @@ import 'package:sdcs/electrificaition.dart';
 import 'package:sdcs/home.dart';
 import 'package:sdcs/personal_info.dart';
 
-void main() {
+void main() async {
+  WidgetsFlutterBinding.ensureInitialized();
+  await Firebase.initializeApp();
+
   runApp(const MyApp());
 }
 
@@ -22,7 +26,7 @@ class MyApp extends StatelessWidget {
     return MaterialApp(
       title: 'Flutter Demo',
       theme: ThemeData(
-          primarySwatch: Colors.teal, textTheme: GoogleFonts.jostTextTheme()),
+          primarySwatch: Colors.indigo, textTheme: GoogleFonts.jostTextTheme()),
       routes: {
         "/": (context) => const RegistorPage(),
         Screen.complaintScreen: (context) => const Complaint(),

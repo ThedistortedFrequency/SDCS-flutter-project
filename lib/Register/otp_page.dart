@@ -1,6 +1,8 @@
 import 'package:cached_network_image/cached_network_image.dart';
+import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:pinput/pinput.dart';
+import 'package:sdcs/Register/registor-page.dart';
 import 'package:sdcs/Utils/routes.dart';
 
 class OtpPage extends StatefulWidget {
@@ -11,6 +13,7 @@ class OtpPage extends StatefulWidget {
 }
 
 class _OtpPageState extends State<OtpPage> {
+  final FirebaseAuth auth = FirebaseAuth.instance;
   @override
   Widget build(BuildContext context) {
     final defaultPinTheme = PinTheme(
@@ -21,13 +24,13 @@ class _OtpPageState extends State<OtpPage> {
           color: Color.fromRGBO(30, 60, 87, 1),
           fontWeight: FontWeight.w600),
       decoration: BoxDecoration(
-        border: Border.all(color: const Color.fromARGB(255, 15, 142, 136)),
+        border: Border.all(color: Colors.indigoAccent),
         borderRadius: BorderRadius.circular(20),
       ),
     );
 
     final focusedPinTheme = defaultPinTheme.copyDecorationWith(
-      border: Border.all(color: Colors.teal),
+      border: Border.all(color: Colors.indigo),
       borderRadius: BorderRadius.circular(8),
     );
 
@@ -36,6 +39,7 @@ class _OtpPageState extends State<OtpPage> {
         color: const Color.fromRGBO(234, 239, 243, 1),
       ),
     );
+    var code = "";
     return SafeArea(
       child: Scaffold(
           backgroundColor: Colors.white,
@@ -43,7 +47,7 @@ class _OtpPageState extends State<OtpPage> {
           appBar: AppBar(
             backgroundColor: Colors.transparent,
             elevation: 0,
-            foregroundColor: Colors.teal,
+            foregroundColor: Colors.indigo,
           ),
           body: Container(
             margin: const EdgeInsets.only(left: 16, right: 16),
@@ -87,12 +91,13 @@ class _OtpPageState extends State<OtpPage> {
 
                   // this code is written form pub.dev pinput package.
                   Pinput(
+                    length: 6,
+                    onChanged: ((value) {
+                      code = value;
+                    }),
                     defaultPinTheme: defaultPinTheme,
                     focusedPinTheme: focusedPinTheme,
                     submittedPinTheme: submittedPinTheme,
-                    validator: (s) {
-                      return s == '2222' ? null : 'Pin is incorrect';
-                    },
                     pinputAutovalidateMode: PinputAutovalidateMode.onSubmit,
                     showCursor: true,
                     onCompleted: (pin) => print(pin),
@@ -104,8 +109,20 @@ class _OtpPageState extends State<OtpPage> {
                     width: double.infinity,
                     height: 60,
                     child: ElevatedButton(
-                        onPressed: () {
-                          Navigator.pushNamed(context, Screen.personalScreen);
+                        onPressed: () async {
+                          try {
+                            PhoneAuthCredential credential =
+                                PhoneAuthProvider.credential(
+                                    verificationId: RegistorPage.verify,
+                                    smsCode: code);
+                            await auth.signInWithCredential(credential);
+                            Navigator.pushNamedAndRemoveUntil(context,
+                                Screen.personalScreen, (route) => false);
+                          } catch (e) {
+                            print("Wrong Otp");
+                          }
+
+                          // Navigator.pushNamed(context, Screen.personalScreen);
                         },
                         child: const Text(
                           "Verify Phone Number",

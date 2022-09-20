@@ -22,7 +22,7 @@ class _ComplaintState extends State<Complaint> {
         appBar: AppBar(
           backgroundColor: Colors.transparent,
           elevation: 0,
-          foregroundColor: Colors.teal,
+          foregroundColor: Colors.indigo,
         ),
         body: SafeArea(
           child: SingleChildScrollView(
@@ -139,7 +139,7 @@ class _ComplaintState extends State<Complaint> {
                           width: double.infinity,
                           height: 65,
                           decoration: BoxDecoration(
-                            color: Colors.teal,
+                            color: Colors.indigo,
                             borderRadius: BorderRadius.circular(5),
                           ),
                           child: const Center(

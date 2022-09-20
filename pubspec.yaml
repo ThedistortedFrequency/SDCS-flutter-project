@@ -39,6 +39,8 @@ dependencies:
   pinput: ^2.2.12
   cached_network_image: ^3.2.1
   google_nav_bar: ^5.0.6
+  firebase_core: ^1.22.0
+  firebase_auth: ^3.9.0
 
 dev_dependencies:
   flutter_test:

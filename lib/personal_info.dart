@@ -62,21 +62,6 @@ class _PersonalInfoState extends State<PersonalInfo> {
                   ),
                 ),
 
-                //Phone number
-                // Padding(
-                //   padding: const EdgeInsets.symmetric(
-                //     horizontal: 16,
-                //     vertical: 8,
-                //   ),
-                //   child: TextFormField(
-                //     keyboardType: TextInputType.phone,
-                //     decoration: const InputDecoration(
-                //         hintText: "Enter Mobile Number",
-                //         label: Text("Mobile No."),
-                //         border: OutlineInputBorder()),
-                //   ),
-                // ),
-
                 //Email Address
                 Padding(
                   padding: const EdgeInsets.symmetric(
@@ -135,7 +120,7 @@ class _PersonalInfoState extends State<PersonalInfo> {
                         width: double.infinity,
                         height: 65,
                         decoration: BoxDecoration(
-                          color: Colors.teal,
+                          color: Colors.indigo,
                           borderRadius: BorderRadius.circular(5),
                         ),
                         child: const Center(

@@ -33,7 +33,7 @@ class _RegistorPageState extends State<RegistorPage> {
           appBar: AppBar(
             backgroundColor: Colors.transparent,
             elevation: 0,
-            foregroundColor: Colors.teal,
+            foregroundColor: Colors.indigo,
           ),
           body: Container(
             margin: const EdgeInsets.only(left: 16, right: 16),
