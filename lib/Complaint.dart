@@ -10,6 +10,8 @@ class Complaint extends StatefulWidget {
 }
 
 class _ComplaintState extends State<Complaint> {
+  String dropdownValue = 'Flickering Issues';
+
   final _formKey = GlobalKey<FormState>();
   @override
   Widget build(BuildContext context) {
@@ -69,6 +71,38 @@ class _ComplaintState extends State<Complaint> {
                       },
                     ),
                   ),
+                  // Dropdown menu
+
+                  Padding(
+                    padding: const EdgeInsets.symmetric(
+                      horizontal: 16,
+                      vertical: 8,
+                    ),
+                    child: DropdownButtonFormField(
+                      decoration: const InputDecoration(
+                          border: OutlineInputBorder(),
+                          labelText: "Problem",
+                          hintText: "Problem"),
+                      value: dropdownValue,
+                      onChanged: (String? newValue) {
+                        setState(() {
+                          dropdownValue = newValue!;
+                        });
+                      },
+                      items: <String>[
+                        "Flickering Issues",
+                        "No Operation",
+                        "External Damage",
+                        "Open Utility Wiring",
+                        "Misuse"
+                      ].map<DropdownMenuItem<String>>((String value) {
+                        return DropdownMenuItem<String>(
+                          value: value,
+                          child: Text(value),
+                        );
+                      }).toList(),
+                    ),
+                  ),
 
                   //  Problem description
 
@@ -78,8 +112,10 @@ class _ComplaintState extends State<Complaint> {
                       vertical: 8,
                     ),
                     child: TextFormField(
+                      keyboardType: TextInputType.multiline,
+                      maxLines: 5,
                       decoration: const InputDecoration(
-                          hintText: "Problem Discription",
+                          hintText: "Problem Discription/Additional Info.",
                           label: Text("Problem Description"),
                           border: OutlineInputBorder()),
                       validator: (value) {

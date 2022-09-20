@@ -26,7 +26,10 @@ class _HomePageState extends State<HomePage> {
         elevation: 0.0,
         title: const Text("Streetlight Defect Complaint System"),
         actions: [
-          IconButton(onPressed: () {}, icon: const Icon(Icons.notifications))
+          IconButton(
+            onPressed: () {},
+            icon: const Icon(Icons.notifications),
+          ),
         ],
       ),
       body: Screen[currentIndex],

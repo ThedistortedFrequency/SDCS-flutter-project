@@ -105,6 +105,8 @@ class _PersonalInfoState extends State<PersonalInfo> {
                     vertical: 8,
                   ),
                   child: TextFormField(
+                    keyboardType: TextInputType.multiline,
+                    maxLines: 3,
                     decoration: const InputDecoration(
                         hintText: "Enter your Address",
                         label: Text("Address"),

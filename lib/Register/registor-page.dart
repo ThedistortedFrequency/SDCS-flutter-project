@@ -56,7 +56,7 @@ class _RegistorPageState extends State<RegistorPage> {
                     ),
                   ),
                   const Text(
-                    "We need to registor you phone Number!",
+                    "We need to register you phone number!",
                     style: TextStyle(
                       fontSize: 20,
                       fontWeight: FontWeight.normal,
