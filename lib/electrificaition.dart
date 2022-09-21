@@ -129,6 +129,23 @@ class _ElectrificationState extends State<Electrification> {
                           border: OutlineInputBorder()),
                     ),
                   ),
+                  // upload image options
+                  Padding(
+                    padding:
+                        const EdgeInsets.symmetric(vertical: 8, horizontal: 16),
+                    child: Row(
+                      mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+                      children: [
+                        const Text(
+                          "Upload Image",
+                          style: TextStyle(
+                              fontSize: 18, fontWeight: FontWeight.bold),
+                        ),
+                        ElevatedButton(
+                            onPressed: () {}, child: const Text("Capture"))
+                      ],
+                    ),
+                  ),
 
                   // Submit
                   Padding(

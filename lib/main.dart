@@ -27,7 +27,7 @@ class MyApp extends StatelessWidget {
       theme: ThemeData(
           primarySwatch: Colors.indigo, textTheme: GoogleFonts.jostTextTheme()),
       routes: {
-        "/": (context) => const RegistorPage(),
+        "/": (context) => const Electrification(),
         Screen.complaintScreen: (context) => const Complaint(),
         Screen.personalScreen: (context) => const PersonalInfo(),
         Screen.registorScreen: (context) => const RegistorPage(),
