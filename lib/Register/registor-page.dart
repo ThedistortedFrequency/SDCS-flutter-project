@@ -136,6 +136,7 @@ class _RegistorPageState extends State<RegistorPage> {
                             codeAutoRetrievalTimeout:
                                 (String verificationId) {},
                           );
+
                           // Navigator.pushNamed(context, Screen.otpPageScreen);
                         },
                         child: const Text(

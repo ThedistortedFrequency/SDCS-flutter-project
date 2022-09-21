@@ -137,7 +137,7 @@ class _ComplaintState extends State<Complaint> {
                         const Text(
                           "Upload Image",
                           style: TextStyle(
-                              fontSize: 18, fontWeight: FontWeight.bold),
+                              fontSize: 20, fontWeight: FontWeight.bold),
                         ),
                         ElevatedButton(
                             onPressed: () {}, child: const Text("Capture"))

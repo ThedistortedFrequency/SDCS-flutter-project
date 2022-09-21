@@ -53,6 +53,7 @@ class _HomePageState extends State<HomePage> {
               backgroundColor: Colors.indigo,
             ),
           ]),
+      drawer: const Drawer(),
     );
   }
 }
