@@ -126,6 +126,9 @@ class _ComplaintState extends State<Complaint> {
                       },
                     ),
                   ),
+
+                  // uploadin image option.
+
                   Padding(
                     padding:
                         const EdgeInsets.symmetric(horizontal: 16, vertical: 8),

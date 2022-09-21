@@ -14,22 +14,22 @@ class _FeedbackPageState extends State<FeedbackPage> {
     return Scaffold(
       backgroundColor: Colors.white,
       extendBodyBehindAppBar: true,
-      body: SafeArea(
+      body: Container(
+        margin: const EdgeInsets.only(left: 16, right: 16),
+        alignment: Alignment.center,
         child: SingleChildScrollView(
-          child: Form(
-            key: _formKey,
-            autovalidateMode: AutovalidateMode.always,
-            child: Container(
-              alignment: Alignment.center,
-              child: Column(
-                mainAxisAlignment: MainAxisAlignment.center,
-                children: [
-                  const SizedBox(),
-                  // Personal Information
-                  const Padding(
-                    padding:
-                        EdgeInsets.symmetric(horizontal: 16, vertical: 8.0),
-                    child: Center(
+          child: Column(
+            mainAxisAlignment: MainAxisAlignment.center,
+            children: [
+              Form(
+                key: _formKey,
+                autovalidateMode: AutovalidateMode.always,
+                child: Column(
+                  mainAxisAlignment: MainAxisAlignment.center,
+                  children: [
+                    const SizedBox(),
+                    // Personal Information
+                    Center(
                       child: Text(
                         "Feedback",
                         style: TextStyle(
@@ -38,23 +38,17 @@ class _FeedbackPageState extends State<FeedbackPage> {
                             color: Colors.black87),
                       ),
                     ),
-                  ),
-                  const SizedBox(
-                    height: 8.0,
-                  ),
-
-                  // feedback submition
-
-                  Padding(
-                    padding: const EdgeInsets.symmetric(
-                      horizontal: 16,
-                      vertical: 8,
+                    const SizedBox(
+                      height: 15.0,
                     ),
-                    child: TextFormField(
+
+                    // feedback submition
+
+                    TextFormField(
                       keyboardType: TextInputType.multiline,
                       maxLines: 3,
                       decoration: const InputDecoration(
-                          hintText: "Let us about your ecperince.",
+                          hintText: "Let us about your experience.",
                           label: Text("Feedback"),
                           border: OutlineInputBorder()),
                       validator: (value) {
@@ -64,14 +58,11 @@ class _FeedbackPageState extends State<FeedbackPage> {
                         return null;
                       },
                     ),
-                  ),
+                    const SizedBox(
+                      height: 15.0,
+                    ),
 
-                  // for queries
-
-                  Padding(
-                    padding:
-                        const EdgeInsets.symmetric(horizontal: 16, vertical: 8),
-                    child: Card(
+                    Card(
                       elevation: 10,
                       child: InkWell(
                         onTap: () {
@@ -95,29 +86,29 @@ class _FeedbackPageState extends State<FeedbackPage> {
                         ),
                       ),
                     ),
-                  ),
-                  const SizedBox(
-                    height: 20,
-                  ),
-                  // for queries
-                  const Text(
-                    "For queries contact at",
-                    style: TextStyle(
-                        fontSize: 19,
-                        fontWeight: FontWeight.normal,
-                        color: Colors.black87),
-                  ),
-                  const Text(
-                    "sdcsapp@gmail.com",
-                    style: TextStyle(
-                        fontSize: 17,
-                        fontWeight: FontWeight.normal,
-                        fontStyle: FontStyle.italic,
-                        color: Colors.black54),
-                  ),
-                ],
+                    const SizedBox(
+                      height: 20,
+                    ),
+                    // for queries
+                    const Text(
+                      "For queries contact at",
+                      style: TextStyle(
+                          fontSize: 19,
+                          fontWeight: FontWeight.normal,
+                          color: Colors.black87),
+                    ),
+                    const Text(
+                      "sdcsapp@gmail.com",
+                      style: TextStyle(
+                          fontSize: 17,
+                          fontWeight: FontWeight.normal,
+                          fontStyle: FontStyle.italic,
+                          color: Colors.black54),
+                    ),
+                  ],
+                ),
               ),
-            ),
+            ],
           ),
         ),
       ),
