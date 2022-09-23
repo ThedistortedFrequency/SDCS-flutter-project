@@ -156,6 +156,17 @@ class _ElectrificationState extends State<Electrification> {
                       child: InkWell(
                         onTap: () {
                           if (_formKey.currentState!.validate()) {}
+                          ScaffoldMessenger.of(context).showSnackBar(
+                            const SnackBar(
+                              content: Text(
+                                "Submitted",
+                                style: TextStyle(),
+                                textAlign: TextAlign.center,
+                              ),
+                              duration: Duration(seconds: 2),
+                              backgroundColor: Colors.indigo,
+                            ),
+                          );
                         },
                         child: Container(
                           width: double.infinity,
