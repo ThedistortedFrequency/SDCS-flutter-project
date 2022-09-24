@@ -9,6 +9,7 @@ import 'package:sdcs/Register/registor-page.dart';
 import 'package:sdcs/Utils/routes.dart';
 import 'package:sdcs/electrificaition.dart';
 import 'package:sdcs/home.dart';
+import 'package:sdcs/onboarding/onboarding_screen.dart';
 import 'package:sdcs/personal_info.dart';
 
 void main() async {
@@ -27,7 +28,7 @@ class MyApp extends StatelessWidget {
       theme: ThemeData(
           primarySwatch: Colors.indigo, textTheme: GoogleFonts.jostTextTheme()),
       routes: {
-        "/": (context) => const PersonalInfo(),
+        "/": (context) => const OnboardingScreen(),
         Screen.complaintScreen: (context) => const Complaint(),
         Screen.personalScreen: (context) => const PersonalInfo(),
         Screen.registorScreen: (context) => const RegistorPage(),
@@ -36,6 +37,7 @@ class MyApp extends StatelessWidget {
         Screen.homeBodyScreen: (context) => const HomeBody(),
         Screen.feedbackScreen: (context) => const FeedbackPage(),
         Screen.electrificationScreen: (context) => const Electrification(),
+        Screen.onboardingScreen: (context) => const OnboardingScreen(),
       },
       debugShowCheckedModeBanner: false,
     );
