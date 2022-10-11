@@ -130,9 +130,9 @@ class _ComplaintState extends State<Complaint> {
                   // uploadin image option.
                   Padding(
                     padding:
-                        const EdgeInsets.symmetric(vertical: 8, horizontal: 16),
+                        const EdgeInsets.symmetric(horizontal: 8, vertical: 16),
                     child: Row(
-                      mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+                      mainAxisAlignment: MainAxisAlignment.spaceBetween,
                       children: [
                         const Text(
                           "Upload Image",

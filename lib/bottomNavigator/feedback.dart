@@ -48,7 +48,7 @@ class _FeedbackPageState extends State<FeedbackPage> {
                       keyboardType: TextInputType.multiline,
                       maxLines: 3,
                       decoration: const InputDecoration(
-                          hintText: "Let us about your experience.",
+                          hintText: "Tell us about your experience.",
                           label: Text("Feedback"),
                           border: OutlineInputBorder()),
                       validator: (value) {

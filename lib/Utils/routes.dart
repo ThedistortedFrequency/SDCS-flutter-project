@@ -8,4 +8,5 @@ class Screen {
   static String homeBodyScreen = "/homeBody";
   static String feedbackScreen = "/feedback";
   static String onboardingScreen = "/onboarding";
+  static String splashScreen = "/splash";
 }

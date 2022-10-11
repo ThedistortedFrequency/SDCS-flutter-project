@@ -11,6 +11,7 @@ import 'package:sdcs/electrificaition.dart';
 import 'package:sdcs/home.dart';
 import 'package:sdcs/onboarding/onboarding_screen.dart';
 import 'package:sdcs/personal_info.dart';
+import 'package:sdcs/splash.dart';
 
 void main() async {
   WidgetsFlutterBinding.ensureInitialized();
@@ -26,9 +27,11 @@ class MyApp extends StatelessWidget {
   Widget build(BuildContext context) {
     return MaterialApp(
       theme: ThemeData(
-          primarySwatch: Colors.indigo, textTheme: GoogleFonts.jostTextTheme()),
+        primarySwatch: Colors.indigo,
+        textTheme: GoogleFonts.jostTextTheme(),
+      ),
       routes: {
-        "/": (context) => const OnboardingScreen(),
+        "/": (context) => const SplashScreen(),
         Screen.complaintScreen: (context) => const Complaint(),
         Screen.personalScreen: (context) => const PersonalInfo(),
         Screen.registorScreen: (context) => const RegistorPage(),
@@ -38,6 +41,7 @@ class MyApp extends StatelessWidget {
         Screen.feedbackScreen: (context) => const FeedbackPage(),
         Screen.electrificationScreen: (context) => const Electrification(),
         Screen.onboardingScreen: (context) => const OnboardingScreen(),
+        Screen.splashScreen: (context) => const SplashScreen(),
       },
       debugShowCheckedModeBanner: false,
     );

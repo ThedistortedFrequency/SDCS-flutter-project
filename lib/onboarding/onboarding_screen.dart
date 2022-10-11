@@ -12,7 +12,9 @@ class OnboardingScreen extends StatefulWidget {
 }
 
 class _OnboardingScreenState extends State<OnboardingScreen> {
+  // for page controller
   final PageController _controller = PageController();
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -23,6 +25,7 @@ class _OnboardingScreenState extends State<OnboardingScreen> {
             controller: _controller,
             children: const [IntroPage(), IntroPage2(), IntroPage3()],
           ),
+
           // dot indicator
           Container(
             alignment: const Alignment(0, 0.925),
@@ -30,6 +33,18 @@ class _OnboardingScreenState extends State<OnboardingScreen> {
               effect: const WormEffect(dotHeight: 7),
               controller: _controller,
               count: 3,
+            ),
+          ),
+          SafeArea(
+            child: Padding(
+              padding:
+                  const EdgeInsets.symmetric(vertical: 25.0, horizontal: 8),
+              child: Column(
+                children: const [
+                  Text("Skip"),
+                  Text("Next"),
+                ],
+              ),
             ),
           )
         ],
