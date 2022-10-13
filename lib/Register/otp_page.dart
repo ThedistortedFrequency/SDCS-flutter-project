@@ -1,4 +1,4 @@
-// ignore_for_file: use_build_context_synchronously
+// ignore_for_file: use_build_context_synchronously, avoid_print
 
 import 'package:cached_network_image/cached_network_image.dart';
 import 'package:firebase_auth/firebase_auth.dart';
@@ -113,6 +113,12 @@ class _OtpPageState extends State<OtpPage> {
                     height: 60,
                     child: ElevatedButton(
                         onPressed: () async {
+                          showDialog(
+                              context: context,
+                              builder: (context) {
+                                return const Center(
+                                    child: CircularProgressIndicator());
+                              });
                           try {
                             PhoneAuthCredential credential =
                                 PhoneAuthProvider.credential(

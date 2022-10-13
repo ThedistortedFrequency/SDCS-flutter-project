@@ -2,6 +2,7 @@
 
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
+import 'package:sdcs/Utils/routes.dart';
 
 class Electrification extends StatefulWidget {
   const Electrification({Key? key}) : super(key: key);
@@ -40,7 +41,8 @@ class _ElectrificationState extends State<Electrification> {
       "Place Description": placedesc,
       "Additional Information": additionalinfo
     });
-    Navigator.of(context).pop();
+    Navigator.pushNamedAndRemoveUntil(
+        context, Screen.electsubmitScreen, (route) => false);
   }
 
   @override
@@ -227,6 +229,73 @@ class _ElectrificationState extends State<Electrification> {
           ),
         ),
       ),
+    );
+  }
+}
+
+class Electsubmit extends StatelessWidget {
+  const Electsubmit({Key? key}) : super(key: key);
+
+  @override
+  Widget build(BuildContext context) {
+    return Scaffold(
+      body: Center(
+          child: Padding(
+        padding: const EdgeInsets.symmetric(horizontal: 15),
+        child: Column(
+          mainAxisAlignment: MainAxisAlignment.center,
+          children: [
+            Container(
+              width: 70,
+              height: 70,
+              color: Colors.transparent,
+              child: Image.asset("assets/tick.png"),
+            ),
+            const SizedBox(
+              height: 20,
+            ),
+            const Text(
+              "Electrification Submitted",
+              style: TextStyle(
+                  fontSize: 25,
+                  fontWeight: FontWeight.bold,
+                  color: Colors.black87),
+            ),
+            const Text(
+              "Your Electrification has been successfully submitted.",
+              style: TextStyle(
+                  fontSize: 16,
+                  fontWeight: FontWeight.normal,
+                  fontStyle: FontStyle.normal,
+                  color: Colors.black),
+            ),
+            const Text(
+              "Thanks for using SDCS.",
+              style: TextStyle(
+                  fontSize: 17,
+                  fontWeight: FontWeight.normal,
+                  color: Colors.black54),
+            ),
+            const SizedBox(
+              height: 20,
+            ),
+            Padding(
+              padding: const EdgeInsets.symmetric(horizontal: 120),
+              child: Container(
+                height: 50,
+                width: double.infinity,
+                color: Colors.transparent,
+                child: ElevatedButton(
+                    onPressed: () {
+                      Navigator.pushReplacementNamed(
+                          context, Screen.homePageScreen);
+                    },
+                    child: const Center(child: Text("Back to Home"))),
+              ),
+            )
+          ],
+        ),
+      )),
     );
   }
 }

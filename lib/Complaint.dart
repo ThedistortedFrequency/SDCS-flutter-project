@@ -2,6 +2,7 @@
 
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
+import 'package:sdcs/Utils/routes.dart';
 
 class Complaint extends StatefulWidget {
   const Complaint({Key? key}) : super(key: key);
@@ -32,7 +33,8 @@ class _ComplaintState extends State<Complaint> {
     await FirebaseFirestore.instance
         .collection("Complaints")
         .add({"Pole Number": polenumber, "Problem description": problemdesc});
-    Navigator.of(context).pop();
+    Navigator.pushNamedAndRemoveUntil(
+        context, Screen.compsubmitScreen, (route) => false);
   }
 
   @override
@@ -173,33 +175,28 @@ class _ComplaintState extends State<Complaint> {
                   Padding(
                     padding:
                         const EdgeInsets.symmetric(horizontal: 16, vertical: 8),
-                    child: Card(
-                      elevation: 10,
-                      child: InkWell(
-                        onTap: () {
-                          if (_formKey.currentState!.validate()) {
-                            addComplaintDetails(
-                                _polenumberController.text.trim(),
-                                _problemdescController.text.trim());
-                          }
-                          // ScaffoldMessenger.of(context).showMaterialBanner()
-                        },
-                        child: Container(
-                          width: double.infinity,
-                          height: 65,
-                          decoration: BoxDecoration(
-                            color: Colors.indigo,
-                            borderRadius: BorderRadius.circular(5),
-                          ),
-                          child: const Center(
-                              child: Text(
-                            "Submit",
-                            style: TextStyle(
-                              color: Colors.white,
-                              fontSize: 20,
-                            ),
-                          )),
+                    child: InkWell(
+                      onTap: () {
+                        if (_formKey.currentState!.validate()) {
+                          addComplaintDetails(_polenumberController.text.trim(),
+                              _problemdescController.text.trim());
+                        }
+                      },
+                      child: Container(
+                        width: double.infinity,
+                        height: 65,
+                        decoration: BoxDecoration(
+                          color: Colors.indigo,
+                          borderRadius: BorderRadius.circular(5),
                         ),
+                        child: const Center(
+                            child: Text(
+                          "Submit",
+                          style: TextStyle(
+                            color: Colors.white,
+                            fontSize: 20,
+                          ),
+                        )),
                       ),
                     ),
                   )
@@ -209,6 +206,73 @@ class _ComplaintState extends State<Complaint> {
           ),
         ),
       ),
+    );
+  }
+}
+
+class CompSubmit extends StatelessWidget {
+  const CompSubmit({Key? key}) : super(key: key);
+
+  @override
+  Widget build(BuildContext context) {
+    return Scaffold(
+      body: Center(
+          child: Padding(
+        padding: const EdgeInsets.symmetric(horizontal: 15),
+        child: Column(
+          mainAxisAlignment: MainAxisAlignment.center,
+          children: [
+            Container(
+              width: 70,
+              height: 70,
+              color: Colors.transparent,
+              child: Image.asset("assets/tick.png"),
+            ),
+            const SizedBox(
+              height: 20,
+            ),
+            const Text(
+              "Complaint Submitted",
+              style: TextStyle(
+                  fontSize: 25,
+                  fontWeight: FontWeight.bold,
+                  color: Colors.black87),
+            ),
+            const Text(
+              "Your Complaint has been successfully submitted.",
+              style: TextStyle(
+                  fontSize: 17,
+                  fontWeight: FontWeight.normal,
+                  fontStyle: FontStyle.normal,
+                  color: Colors.black),
+            ),
+            const Text(
+              "Thanks for using SDCS.",
+              style: TextStyle(
+                  fontSize: 17,
+                  fontWeight: FontWeight.normal,
+                  color: Colors.black54),
+            ),
+            const SizedBox(
+              height: 20,
+            ),
+            Padding(
+              padding: const EdgeInsets.symmetric(horizontal: 120),
+              child: Container(
+                height: 50,
+                width: double.infinity,
+                color: Colors.transparent,
+                child: ElevatedButton(
+                    onPressed: () {
+                      Navigator.pushReplacementNamed(
+                          context, Screen.homePageScreen);
+                    },
+                    child: const Center(child: Text("Back to Home"))),
+              ),
+            )
+          ],
+        ),
+      )),
     );
   }
 }

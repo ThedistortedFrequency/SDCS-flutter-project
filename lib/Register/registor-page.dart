@@ -121,6 +121,12 @@ class _RegistorPageState extends State<RegistorPage> {
                     height: 60,
                     child: ElevatedButton(
                         onPressed: () async {
+                          showDialog(
+                              context: context,
+                              builder: (context) {
+                                return const Center(
+                                    child: CircularProgressIndicator());
+                              });
                           await FirebaseAuth.instance.verifyPhoneNumber(
                             phoneNumber: '${countryController.text + phone}',
                             verificationCompleted:
@@ -130,7 +136,7 @@ class _RegistorPageState extends State<RegistorPage> {
                                 (String verificationId, int? resendToken) {
                               RegistorPage.verify = verificationId;
 
-                              Navigator.pushNamed(
+                              Navigator.popAndPushNamed(
                                   context, Screen.otpPageScreen);
                             },
                             codeAutoRetrievalTimeout:

@@ -31,7 +31,7 @@ class MyApp extends StatelessWidget {
         textTheme: GoogleFonts.jostTextTheme(),
       ),
       routes: {
-        "/": (context) => const SplashScreen(),
+        "/": (context) => const RegistorPage(),
         Screen.complaintScreen: (context) => const Complaint(),
         Screen.personalScreen: (context) => const PersonalInfo(),
         Screen.registorScreen: (context) => const RegistorPage(),
@@ -42,6 +42,9 @@ class MyApp extends StatelessWidget {
         Screen.electrificationScreen: (context) => const Electrification(),
         Screen.onboardingScreen: (context) => const OnboardingScreen(),
         Screen.splashScreen: (context) => const SplashScreen(),
+        Screen.compsubmitScreen: (context) => const CompSubmit(),
+        Screen.electsubmitScreen: (context) => const Electsubmit(),
+        Screen.feedsubmitScreen: (context) => const Feedsubmit(),
       },
       debugShowCheckedModeBanner: false,
     );

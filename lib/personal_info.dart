@@ -27,11 +27,18 @@ class _PersonalInfoState extends State<PersonalInfo> {
   }
 
   Future addUserDetails(String name, String email, var adderss) async {
+    showDialog(
+        context: context,
+        builder: (context) {
+          return const Center(child: CircularProgressIndicator());
+        });
     await FirebaseFirestore.instance.collection("users").add({
       "Name": name,
       "Email": email,
       "Address": adderss,
     });
+    Navigator.pushNamedAndRemoveUntil(
+        context, Screen.homePageScreen, (route) => false);
   }
 
   @override
@@ -142,8 +149,6 @@ class _PersonalInfoState extends State<PersonalInfo> {
                             _emailController.text.trim(),
                             _addressController.text.trim(),
                           );
-                          Navigator.pushReplacementNamed(
-                              context, Screen.homePageScreen);
                         }
                       },
                       child: Container(
