@@ -1,3 +1,6 @@
+// ignore_for_file: use_build_context_synchronously
+
+import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
 import 'package:form_field_validator/form_field_validator.dart';
 import 'package:sdcs/Utils/routes.dart';
@@ -11,6 +14,25 @@ class PersonalInfo extends StatefulWidget {
 
 class _PersonalInfoState extends State<PersonalInfo> {
   final _formKey = GlobalKey<FormState>();
+  final _nameController = TextEditingController();
+  final _emailController = TextEditingController();
+  final _addressController = TextEditingController();
+
+  @override
+  void dispose() {
+    _nameController.dispose();
+    _emailController.dispose();
+    _addressController.dispose();
+    super.dispose();
+  }
+
+  Future addUserDetails(String name, String email, var adderss) async {
+    await FirebaseFirestore.instance.collection("users").add({
+      "Name": name,
+      "Email": email,
+      "Address": adderss,
+    });
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -49,6 +71,7 @@ class _PersonalInfoState extends State<PersonalInfo> {
                     vertical: 8,
                   ),
                   child: TextFormField(
+                    controller: _nameController,
                     decoration: const InputDecoration(
                         hintText: "Enter your name",
                         label: Text("Name"),
@@ -69,6 +92,7 @@ class _PersonalInfoState extends State<PersonalInfo> {
                     vertical: 8,
                   ),
                   child: TextFormField(
+                    controller: _emailController,
                     keyboardType: TextInputType.emailAddress,
                     autofillHints: const [AutofillHints.email],
                     decoration: const InputDecoration(
@@ -90,6 +114,7 @@ class _PersonalInfoState extends State<PersonalInfo> {
                     vertical: 8,
                   ),
                   child: TextFormField(
+                    controller: _addressController,
                     keyboardType: TextInputType.multiline,
                     maxLines: 3,
                     decoration: const InputDecoration(
@@ -112,8 +137,13 @@ class _PersonalInfoState extends State<PersonalInfo> {
                     child: InkWell(
                       onTap: () {
                         if (_formKey.currentState!.validate()) {
-                          Navigator.of(context)
-                              .pushNamed(Screen.homePageScreen);
+                          addUserDetails(
+                            _nameController.text.trim(),
+                            _emailController.text.trim(),
+                            _addressController.text.trim(),
+                          );
+                          Navigator.pushReplacementNamed(
+                              context, Screen.homePageScreen);
                         }
                       },
                       child: Container(

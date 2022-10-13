@@ -1,3 +1,6 @@
+// ignore_for_file: use_build_context_synchronously
+
+import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
 
 class FeedbackPage extends StatefulWidget {
@@ -9,6 +12,25 @@ class FeedbackPage extends StatefulWidget {
 
 class _FeedbackPageState extends State<FeedbackPage> {
   final _formKey = GlobalKey<FormState>();
+  final _feedbackController = TextEditingController();
+  @override
+  void dispose() {
+    _feedbackController.dispose();
+    super.dispose();
+  }
+
+  Future addfeedbackDetails(String feedback) async {
+    showDialog(
+        context: context,
+        builder: (context) {
+          return const Center(child: CircularProgressIndicator());
+        });
+    await FirebaseFirestore.instance
+        .collection("Feedback")
+        .add({"feedback details": feedback});
+    Navigator.of(context).pop();
+  }
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -29,7 +51,7 @@ class _FeedbackPageState extends State<FeedbackPage> {
                   children: [
                     const SizedBox(),
                     // Personal Information
-                    Center(
+                    const Center(
                       child: Text(
                         "Feedback",
                         style: TextStyle(
@@ -45,6 +67,7 @@ class _FeedbackPageState extends State<FeedbackPage> {
                     // feedback submition
 
                     TextFormField(
+                      controller: _feedbackController,
                       keyboardType: TextInputType.multiline,
                       maxLines: 3,
                       decoration: const InputDecoration(
@@ -66,18 +89,9 @@ class _FeedbackPageState extends State<FeedbackPage> {
                       elevation: 10,
                       child: InkWell(
                         onTap: () {
-                          if (_formKey.currentState!.validate()) {}
-                          // ScaffoldMessenger.of(context).showSnackBar(
-                          //   const SnackBar(
-                          //     content: Text(
-                          //       "Submitted",
-                          //       style: TextStyle(),
-                          //       textAlign: TextAlign.center,
-                          //     ),
-                          //     duration: Duration(seconds: 2),
-                          //     backgroundColor: Colors.indigoAccent,
-                          //   ),
-                          // );
+                          if (_formKey.currentState!.validate()) {
+                            addfeedbackDetails(_feedbackController.text.trim());
+                          }
                         },
                         child: Container(
                           width: double.infinity,

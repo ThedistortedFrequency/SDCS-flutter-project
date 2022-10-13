@@ -1,5 +1,6 @@
-// ignore_for_file: file_names
+// ignore_for_file: file_names, use_build_context_synchronously
 
+import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
 
 class Complaint extends StatefulWidget {
@@ -11,8 +12,29 @@ class Complaint extends StatefulWidget {
 
 class _ComplaintState extends State<Complaint> {
   String dropdownValue = 'Flickering Issues';
-
   final _formKey = GlobalKey<FormState>();
+  final _polenumberController = TextEditingController();
+  final _problemdescController = TextEditingController();
+  @override
+  void dispose() {
+    _polenumberController.dispose();
+
+    _problemdescController.dispose();
+    super.dispose();
+  }
+
+  Future addComplaintDetails(var polenumber, var problemdesc) async {
+    showDialog(
+        context: context,
+        builder: (context) {
+          return const Center(child: CircularProgressIndicator());
+        });
+    await FirebaseFirestore.instance
+        .collection("Complaints")
+        .add({"Pole Number": polenumber, "Problem description": problemdesc});
+    Navigator.of(context).pop();
+  }
+
   @override
   Widget build(BuildContext context) {
     return SafeArea(
@@ -59,6 +81,7 @@ class _ComplaintState extends State<Complaint> {
                       vertical: 8,
                     ),
                     child: TextFormField(
+                      controller: _polenumberController,
                       decoration: const InputDecoration(
                           hintText: "Enter Pole Number",
                           label: Text("Pole No."),
@@ -112,8 +135,10 @@ class _ComplaintState extends State<Complaint> {
                       vertical: 8,
                     ),
                     child: TextFormField(
+                      controller: _problemdescController,
                       keyboardType: TextInputType.multiline,
                       maxLines: 5,
+                      maxLength: 70,
                       decoration: const InputDecoration(
                           hintText: "Problem Discription/Additional Info.",
                           label: Text("Problem Description"),
@@ -152,18 +177,12 @@ class _ComplaintState extends State<Complaint> {
                       elevation: 10,
                       child: InkWell(
                         onTap: () {
-                          if (_formKey.currentState!.validate()) {}
-                          ScaffoldMessenger.of(context).showSnackBar(
-                            const SnackBar(
-                              content: Text(
-                                "Submitted",
-                                style: TextStyle(),
-                                textAlign: TextAlign.center,
-                              ),
-                              duration: Duration(seconds: 2),
-                              backgroundColor: Colors.indigo,
-                            ),
-                          );
+                          if (_formKey.currentState!.validate()) {
+                            addComplaintDetails(
+                                _polenumberController.text.trim(),
+                                _problemdescController.text.trim());
+                          }
+                          // ScaffoldMessenger.of(context).showMaterialBanner()
                         },
                         child: Container(
                           width: double.infinity,

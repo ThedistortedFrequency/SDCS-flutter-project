@@ -1,3 +1,6 @@
+// ignore_for_file: use_build_context_synchronously
+
+import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
 
 class Electrification extends StatefulWidget {
@@ -9,6 +12,37 @@ class Electrification extends StatefulWidget {
 
 class _ElectrificationState extends State<Electrification> {
   final _formKey = GlobalKey<FormState>();
+  final _areaController = TextEditingController();
+  final _pincodeController = TextEditingController();
+  final _placedescController = TextEditingController();
+  final _additionalinfoController = TextEditingController();
+
+  @override
+  void dispose() {
+    _areaController.dispose();
+    _pincodeController.dispose();
+    _placedescController.dispose();
+    _additionalinfoController.dispose();
+
+    super.dispose();
+  }
+
+  Future addelectirficationDetails(
+      var area, var pincode, String placedesc, String additionalinfo) async {
+    showDialog(
+        context: context,
+        builder: (context) {
+          return const Center(child: CircularProgressIndicator());
+        });
+    await FirebaseFirestore.instance.collection("Electrification").add({
+      "Area": area,
+      "Pin Code": pincode,
+      "Place Description": placedesc,
+      "Additional Information": additionalinfo
+    });
+    Navigator.of(context).pop();
+  }
+
   @override
   Widget build(BuildContext context) {
     return SafeArea(
@@ -56,6 +90,7 @@ class _ElectrificationState extends State<Electrification> {
                       vertical: 8,
                     ),
                     child: TextFormField(
+                      controller: _areaController,
                       decoration: const InputDecoration(
                           hintText: "Area",
                           label: Text("Area"),
@@ -75,6 +110,7 @@ class _ElectrificationState extends State<Electrification> {
                       vertical: 8,
                     ),
                     child: TextFormField(
+                      controller: _pincodeController,
                       keyboardType: TextInputType.number,
                       decoration: const InputDecoration(
                           hintText: " Enter Pin Code",
@@ -100,6 +136,7 @@ class _ElectrificationState extends State<Electrification> {
                       vertical: 8,
                     ),
                     child: TextFormField(
+                      controller: _placedescController,
                       keyboardType: TextInputType.multiline,
                       maxLines: 3,
                       decoration: const InputDecoration(
@@ -121,6 +158,7 @@ class _ElectrificationState extends State<Electrification> {
                       vertical: 8,
                     ),
                     child: TextFormField(
+                      controller: _additionalinfoController,
                       keyboardType: TextInputType.multiline,
                       maxLines: 3,
                       decoration: const InputDecoration(
@@ -155,18 +193,14 @@ class _ElectrificationState extends State<Electrification> {
                       elevation: 10,
                       child: InkWell(
                         onTap: () {
-                          if (_formKey.currentState!.validate()) {}
-                          ScaffoldMessenger.of(context).showSnackBar(
-                            const SnackBar(
-                              content: Text(
-                                "Submitted",
-                                style: TextStyle(),
-                                textAlign: TextAlign.center,
-                              ),
-                              duration: Duration(seconds: 2),
-                              backgroundColor: Colors.indigo,
-                            ),
-                          );
+                          if (_formKey.currentState!.validate()) {
+                            addelectirficationDetails(
+                              _areaController.text.trim(),
+                              _pincodeController.text.trim(),
+                              _placedescController.text.trim(),
+                              _additionalinfoController.text.trim(),
+                            );
+                          }
                         },
                         child: Container(
                           width: double.infinity,
