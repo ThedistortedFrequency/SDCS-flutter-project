@@ -15,24 +15,28 @@ class _ComplaintState extends State<Complaint> {
   String dropdownValue = 'Flickering Issues';
   final _formKey = GlobalKey<FormState>();
   final _polenumberController = TextEditingController();
+  final _poleaddController = TextEditingController();
   final _problemdescController = TextEditingController();
   @override
   void dispose() {
     _polenumberController.dispose();
-
+    _poleaddController.dispose();
     _problemdescController.dispose();
     super.dispose();
   }
 
-  Future addComplaintDetails(var polenumber, var problemdesc) async {
+  Future addComplaintDetails(
+      var polenumber, var poleadd, var problemdesc) async {
     showDialog(
         context: context,
         builder: (context) {
           return const Center(child: CircularProgressIndicator());
         });
-    await FirebaseFirestore.instance
-        .collection("Complaints")
-        .add({"Pole Number": polenumber, "Problem description": problemdesc});
+    await FirebaseFirestore.instance.collection("Complaints").add({
+      "Pole Number": polenumber,
+      "Pole Address": poleadd,
+      "Problem description": problemdesc
+    });
     Navigator.pushNamedAndRemoveUntil(
         context, Screen.compsubmitScreen, (route) => false);
   }
@@ -88,6 +92,20 @@ class _ComplaintState extends State<Complaint> {
                           hintText: "Enter Pole Number",
                           label: Text("Pole No."),
                           border: OutlineInputBorder()),
+                    ),
+                  ),
+                  // pole address.
+                  Padding(
+                    padding: const EdgeInsets.symmetric(
+                      horizontal: 16,
+                      vertical: 8,
+                    ),
+                    child: TextFormField(
+                      controller: _poleaddController,
+                      decoration: const InputDecoration(
+                          hintText: "Enter Pole Address",
+                          label: Text("Pole Address"),
+                          border: OutlineInputBorder()),
                       validator: (value) {
                         if (value!.isEmpty) {
                           return "Required";
@@ -142,7 +160,7 @@ class _ComplaintState extends State<Complaint> {
                       maxLines: 5,
                       maxLength: 70,
                       decoration: const InputDecoration(
-                          hintText: "Problem Discription/Additional Info.",
+                          hintText: "Problem Description/Additional Info.",
                           label: Text("Problem Description"),
                           border: OutlineInputBorder()),
                       validator: (value) {
@@ -159,7 +177,7 @@ class _ComplaintState extends State<Complaint> {
                     padding:
                         const EdgeInsets.symmetric(horizontal: 8, vertical: 16),
                     child: Row(
-                      mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                      mainAxisAlignment: MainAxisAlignment.spaceEvenly,
                       children: [
                         const Text(
                           "Upload Image",
@@ -178,7 +196,9 @@ class _ComplaintState extends State<Complaint> {
                     child: InkWell(
                       onTap: () {
                         if (_formKey.currentState!.validate()) {
-                          addComplaintDetails(_polenumberController.text.trim(),
+                          addComplaintDetails(
+                              _polenumberController.text.trim(),
+                              _poleaddController.text.trim(),
                               _problemdescController.text.trim());
                         }
                       },
@@ -241,7 +261,7 @@ class CompSubmit extends StatelessWidget {
             const Text(
               "Your Complaint has been successfully submitted.",
               style: TextStyle(
-                  fontSize: 17,
+                  fontSize: 16,
                   fontWeight: FontWeight.normal,
                   fontStyle: FontStyle.normal,
                   color: Colors.black),
