@@ -103,6 +103,7 @@ class _PersonalInfoState extends State<PersonalInfo> {
                   ),
                   child: TextFormField(
                     controller: _phonenoController,
+                    keyboardType: TextInputType.number,
                     decoration: const InputDecoration(
                         hintText: "Enter Phone Number",
                         label: Text("Phone No"),
@@ -110,6 +111,10 @@ class _PersonalInfoState extends State<PersonalInfo> {
                     validator: (value) {
                       if (value!.isEmpty) {
                         return "Required";
+                      } else if (value.length < 10) {
+                        return "Invalid";
+                      } else if (value.length > 10) {
+                        return "Invalid";
                       }
                       return null;
                     },
