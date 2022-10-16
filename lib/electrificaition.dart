@@ -28,8 +28,8 @@ class _ElectrificationState extends State<Electrification> {
     super.dispose();
   }
 
-  Future addelectirficationDetails(
-      var area, var pincode, String placedesc, String additionalinfo) async {
+  Future addelectirficationDetails(String area, String pincode,
+      String placedesc, String additionalinfo) async {
     showDialog(
         context: context,
         builder: (context) {

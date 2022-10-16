@@ -17,16 +17,19 @@ class _PersonalInfoState extends State<PersonalInfo> {
   final _nameController = TextEditingController();
   final _emailController = TextEditingController();
   final _addressController = TextEditingController();
+  final _phonenoController = TextEditingController();
 
   @override
   void dispose() {
     _nameController.dispose();
     _emailController.dispose();
     _addressController.dispose();
+    _phonenoController.dispose();
     super.dispose();
   }
 
-  Future addUserDetails(String name, String email, var adderss) async {
+  Future addUserDetails(
+      String name, String email, String adderss, String phoneno) async {
     showDialog(
         context: context,
         builder: (context) {
@@ -36,6 +39,7 @@ class _PersonalInfoState extends State<PersonalInfo> {
       "Name": name,
       "Email": email,
       "Address": adderss,
+      "Phone Number": phoneno
     });
     Navigator.pushNamedAndRemoveUntil(
         context, Screen.homePageScreen, (route) => false);
@@ -82,6 +86,26 @@ class _PersonalInfoState extends State<PersonalInfo> {
                     decoration: const InputDecoration(
                         hintText: "Enter your name",
                         label: Text("Name"),
+                        border: OutlineInputBorder()),
+                    validator: (value) {
+                      if (value!.isEmpty) {
+                        return "Required";
+                      }
+                      return null;
+                    },
+                  ),
+                ),
+                // phone number
+                Padding(
+                  padding: const EdgeInsets.symmetric(
+                    horizontal: 16,
+                    vertical: 8,
+                  ),
+                  child: TextFormField(
+                    controller: _phonenoController,
+                    decoration: const InputDecoration(
+                        hintText: "Enter Phone Number",
+                        label: Text("Phone No"),
                         border: OutlineInputBorder()),
                     validator: (value) {
                       if (value!.isEmpty) {
@@ -145,10 +169,10 @@ class _PersonalInfoState extends State<PersonalInfo> {
                       onTap: () {
                         if (_formKey.currentState!.validate()) {
                           addUserDetails(
-                            _nameController.text.trim(),
-                            _emailController.text.trim(),
-                            _addressController.text.trim(),
-                          );
+                              _nameController.text.trim(),
+                              _emailController.text.trim(),
+                              _addressController.text.trim(),
+                              _phonenoController.text.trim());
                         }
                       },
                       child: Container(

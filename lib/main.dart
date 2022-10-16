@@ -31,7 +31,7 @@ class MyApp extends StatelessWidget {
         textTheme: GoogleFonts.jostTextTheme(),
       ),
       routes: {
-        "/": (context) => const RegistorPage(),
+        "/": (context) => const PersonalInfo(),
         Screen.complaintScreen: (context) => const Complaint(),
         Screen.personalScreen: (context) => const PersonalInfo(),
         Screen.registorScreen: (context) => const RegistorPage(),

@@ -26,7 +26,7 @@ class _ComplaintState extends State<Complaint> {
   }
 
   Future addComplaintDetails(
-      var polenumber, var poleadd, var problemdesc) async {
+      String polenumber, String poleadd, String problemdesc) async {
     showDialog(
         context: context,
         builder: (context) {
@@ -36,7 +36,7 @@ class _ComplaintState extends State<Complaint> {
       "Pole Number": polenumber,
       "Pole Address": poleadd,
       "Problem description": problemdesc
-    });
+    }).then((value) => value.id);
     Navigator.pushNamedAndRemoveUntil(
         context, Screen.compsubmitScreen, (route) => false);
   }

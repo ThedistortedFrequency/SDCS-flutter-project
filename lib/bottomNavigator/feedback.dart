@@ -2,6 +2,7 @@
 
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
+import 'package:form_field_validator/form_field_validator.dart';
 import 'package:sdcs/Utils/routes.dart';
 
 class FeedbackPage extends StatefulWidget {
@@ -14,13 +15,16 @@ class FeedbackPage extends StatefulWidget {
 class _FeedbackPageState extends State<FeedbackPage> {
   final _formKey = GlobalKey<FormState>();
   final _feedbackController = TextEditingController();
+  final _emailadController = TextEditingController();
   @override
   void dispose() {
     _feedbackController.dispose();
+    _emailadController.dispose();
+
     super.dispose();
   }
 
-  Future addfeedbackDetails(String feedback) async {
+  Future addfeedbackDetails(String feedback, String email) async {
     showDialog(
         context: context,
         builder: (context) {
@@ -28,7 +32,7 @@ class _FeedbackPageState extends State<FeedbackPage> {
         });
     await FirebaseFirestore.instance
         .collection("Feedback")
-        .add({"feedback details": feedback});
+        .add({"feedback details": feedback, "Email Address": email});
     Navigator.pushNamedAndRemoveUntil(
         context, Screen.feedsubmitScreen, (route) => false);
   }
@@ -66,6 +70,24 @@ class _FeedbackPageState extends State<FeedbackPage> {
                       height: 15.0,
                     ),
 
+                    // Email
+                    TextFormField(
+                      controller: _emailadController,
+                      keyboardType: TextInputType.emailAddress,
+                      autofillHints: const [AutofillHints.email],
+                      decoration: const InputDecoration(
+                          hintText: "Enter your email",
+                          label: Text("Email"),
+                          border: OutlineInputBorder()),
+                      validator: MultiValidator([
+                        RequiredValidator(errorText: " Required"),
+                        EmailValidator(errorText: "Not a valid email.")
+                      ]),
+                    ),
+                    const SizedBox(
+                      height: 8.0,
+                    ),
+
                     // feedback submition
 
                     TextFormField(
@@ -92,7 +114,8 @@ class _FeedbackPageState extends State<FeedbackPage> {
                       child: InkWell(
                         onTap: () {
                           if (_formKey.currentState!.validate()) {
-                            addfeedbackDetails(_feedbackController.text.trim());
+                            addfeedbackDetails(_feedbackController.text.trim(),
+                                _emailadController.text.trim());
                           }
                         },
                         child: Container(
