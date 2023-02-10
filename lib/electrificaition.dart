@@ -36,6 +36,7 @@ class _ElectrificationState extends State<Electrification> {
           return const Center(child: CircularProgressIndicator());
         });
     await FirebaseFirestore.instance.collection("Electrification").add({
+      "timestamp": FieldValue.serverTimestamp(),
       "Area": area,
       "Pin Code": pincode,
       "Place Description": placedesc,

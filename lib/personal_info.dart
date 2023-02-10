@@ -36,10 +36,11 @@ class _PersonalInfoState extends State<PersonalInfo> {
           return const Center(child: CircularProgressIndicator());
         });
     await FirebaseFirestore.instance.collection("users").add({
+      "timestamp": FieldValue.serverTimestamp(),
       "Name": name,
       "Email": email,
       "Address": adderss,
-      "Phone Number": phoneno
+      "Phone Number": phoneno,
     });
     Navigator.pushNamedAndRemoveUntil(
         context, Screen.homePageScreen, (route) => false);

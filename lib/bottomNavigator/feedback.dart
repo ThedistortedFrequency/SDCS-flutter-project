@@ -30,9 +30,11 @@ class _FeedbackPageState extends State<FeedbackPage> {
         builder: (context) {
           return const Center(child: CircularProgressIndicator());
         });
-    await FirebaseFirestore.instance
-        .collection("Feedback")
-        .add({"feedback details": feedback, "Email Address": email});
+    await FirebaseFirestore.instance.collection("Feedback").add({
+      "timestamp": FieldValue.serverTimestamp(),
+      "feedback details": feedback,
+      "Email Address": email
+    });
     Navigator.pushNamedAndRemoveUntil(
         context, Screen.feedsubmitScreen, (route) => false);
   }

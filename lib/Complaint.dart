@@ -17,25 +17,37 @@ class _ComplaintState extends State<Complaint> {
   final _polenumberController = TextEditingController();
   final _poleaddController = TextEditingController();
   final _problemdescController = TextEditingController();
+  final _problemController = TextEditingController();
+  final _issues = [
+    "Flickering Issues",
+    "No Operation",
+    "External Damage",
+    "Open Utility Wiring",
+    "Misuse"
+  ];
+
   @override
   void dispose() {
     _polenumberController.dispose();
     _poleaddController.dispose();
     _problemdescController.dispose();
+    _problemController.dispose();
     super.dispose();
   }
 
-  Future addComplaintDetails(
-      String polenumber, String poleadd, String problemdesc) async {
+  Future addComplaintDetails(String polenumber, String poleadd,
+      String problemdesc, String problem) async {
     showDialog(
         context: context,
         builder: (context) {
           return const Center(child: CircularProgressIndicator());
         });
     await FirebaseFirestore.instance.collection("Complaints").add({
+      "timestamp": FieldValue.serverTimestamp(),
       "Pole Number": polenumber,
       "Pole Address": poleadd,
-      "Problem description": problemdesc
+      "Problem description": problemdesc,
+      "problem": problem,
     }).then((value) => value.id);
     Navigator.pushNamedAndRemoveUntil(
         context, Screen.compsubmitScreen, (route) => false);
@@ -132,13 +144,8 @@ class _ComplaintState extends State<Complaint> {
                           dropdownValue = newValue!;
                         });
                       },
-                      items: <String>[
-                        "Flickering Issues",
-                        "No Operation",
-                        "External Damage",
-                        "Open Utility Wiring",
-                        "Misuse"
-                      ].map<DropdownMenuItem<String>>((String value) {
+                      items:
+                          _issues.map<DropdownMenuItem<String>>((String value) {
                         return DropdownMenuItem<String>(
                           value: value,
                           child: Text(value),
@@ -199,7 +206,8 @@ class _ComplaintState extends State<Complaint> {
                           addComplaintDetails(
                               _polenumberController.text.trim(),
                               _poleaddController.text.trim(),
-                              _problemdescController.text.trim());
+                              _problemdescController.text.trim(),
+                              _problemController.text.trim());
                         }
                       },
                       child: Container(

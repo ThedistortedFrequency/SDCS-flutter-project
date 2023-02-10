@@ -2,6 +2,7 @@ import 'package:firebase_core/firebase_core.dart';
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:sdcs/Complaint.dart';
+import 'package:sdcs/Imagepicker.dart';
 import 'package:sdcs/bottomNavigator/feedback.dart';
 import 'package:sdcs/bottomNavigator/home_body.dart';
 import 'package:sdcs/Register/otp_page.dart';
@@ -13,9 +14,9 @@ import 'package:sdcs/onboarding/onboarding_screen.dart';
 import 'package:sdcs/personal_info.dart';
 import 'package:sdcs/splash.dart';
 
-void main() async {
+void main() {
   WidgetsFlutterBinding.ensureInitialized();
-  await Firebase.initializeApp();
+  Firebase.initializeApp();
 
   runApp(const MyApp());
 }
@@ -45,6 +46,7 @@ class MyApp extends StatelessWidget {
         Screen.compsubmitScreen: (context) => const CompSubmit(),
         Screen.electsubmitScreen: (context) => const Electsubmit(),
         Screen.feedsubmitScreen: (context) => const Feedsubmit(),
+        // Screen.imagecapture: (context) => const ImageCapture()
       },
       debugShowCheckedModeBanner: false,
     );

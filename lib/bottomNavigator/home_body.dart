@@ -8,7 +8,7 @@ class HomeBody extends StatelessWidget {
   Widget build(BuildContext context) {
     return Scaffold(
       extendBodyBehindAppBar: true,
-      backgroundColor: Colors.indigo[100],
+      backgroundColor: Colors.white,
       body: Center(
           child: Container(
         margin: const EdgeInsets.only(left: 16, right: 16),

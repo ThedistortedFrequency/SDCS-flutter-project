@@ -12,4 +12,5 @@ class Screen {
   static String compsubmitScreen = "/compsubmit";
   static String electsubmitScreen = "/electsubmit";
   static String feedsubmitScreen = "/feedsubmit";
+  static String imagecapture = "/imagecapture";
 }
