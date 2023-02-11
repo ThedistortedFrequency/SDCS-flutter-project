@@ -1,5 +1,7 @@
 // ignore_for_file: file_names, use_build_context_synchronously
 
+import 'dart:html';
+
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
 import 'package:sdcs/Utils/routes.dart';
@@ -18,6 +20,8 @@ class _ComplaintState extends State<Complaint> {
   final _poleaddController = TextEditingController();
   final _problemdescController = TextEditingController();
   final _problemController = TextEditingController();
+  final _complaintIdController = TextEditingController();
+
   final _issues = [
     "Flickering Issues",
     "No Operation",
@@ -28,6 +32,7 @@ class _ComplaintState extends State<Complaint> {
 
   @override
   void dispose() {
+    _complaintIdController.dispose();
     _polenumberController.dispose();
     _poleaddController.dispose();
     _problemdescController.dispose();
@@ -35,20 +40,27 @@ class _ComplaintState extends State<Complaint> {
     super.dispose();
   }
 
-  Future addComplaintDetails(String polenumber, String poleadd,
-      String problemdesc, String problem) async {
+  Future addComplaintDetails(
+    String polenumber,
+    String poleadd,
+    String problemdesc,
+    String problem,
+  ) async {
     showDialog(
         context: context,
         builder: (context) {
           return const Center(child: CircularProgressIndicator());
         });
+
     await FirebaseFirestore.instance.collection("Complaints").add({
+      "complaintId": 100,
       "timestamp": FieldValue.serverTimestamp(),
       "Pole Number": polenumber,
       "Pole Address": poleadd,
       "Problem description": problemdesc,
       "problem": problem,
     }).then((value) => value.id);
+
     Navigator.pushNamedAndRemoveUntil(
         context, Screen.compsubmitScreen, (route) => false);
   }
@@ -204,10 +216,11 @@ class _ComplaintState extends State<Complaint> {
                       onTap: () {
                         if (_formKey.currentState!.validate()) {
                           addComplaintDetails(
-                              _polenumberController.text.trim(),
-                              _poleaddController.text.trim(),
-                              _problemdescController.text.trim(),
-                              _problemController.text.trim());
+                            _polenumberController.text.trim(),
+                            _poleaddController.text.trim(),
+                            _problemdescController.text.trim(),
+                            _problemController.text.trim(),
+                          );
                         }
                       },
                       child: Container(

@@ -2,7 +2,6 @@ import 'package:firebase_core/firebase_core.dart';
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:sdcs/Complaint.dart';
-import 'package:sdcs/Imagepicker.dart';
 import 'package:sdcs/bottomNavigator/feedback.dart';
 import 'package:sdcs/bottomNavigator/home_body.dart';
 import 'package:sdcs/Register/otp_page.dart';
