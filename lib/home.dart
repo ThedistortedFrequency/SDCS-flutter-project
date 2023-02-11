@@ -4,6 +4,7 @@ import 'package:flutter/material.dart';
 
 import 'package:sdcs/bottomNavigator/feedback.dart';
 import 'package:sdcs/bottomNavigator/home_body.dart';
+import 'package:sdcs/bottomNavigator/status.dart';
 
 class HomePage extends StatefulWidget {
   const HomePage({Key? key}) : super(key: key);
@@ -14,10 +15,7 @@ class HomePage extends StatefulWidget {
 
 class _HomePageState extends State<HomePage> {
   int currentIndex = 0;
-  List Screen = [
-    const HomeBody(),
-    const FeedbackPage(),
-  ];
+  List Screen = [const HomeBody(), const FeedbackPage(), const StatusPage()];
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -51,6 +49,11 @@ class _HomePageState extends State<HomePage> {
             BottomNavigationBarItem(
               icon: Icon(Icons.feedback),
               label: "Feedback",
+              backgroundColor: Colors.indigo,
+            ),
+            BottomNavigationBarItem(
+              icon: Icon(Icons.note),
+              label: "Status",
               backgroundColor: Colors.indigo,
             ),
           ]),
